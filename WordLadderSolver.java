@@ -81,13 +81,13 @@ public class WordLadderSolver implements Assignment4Interface
     						if(dict.searchDict(tempWord)){
     							if(!(candidateList.contains(tempWord))){
     								candidateList.add(tempWord);
-    								candidateList = sortTemp(candidateList, tempWord);
+    								candidateList = sortTemp(candidateList, endWord);
     							}
     						}	
     					}
     				}
     			}
-    			outOrNot = false;
+    			outOrNot = true;
     			break;
     		case 0:
     			for(char character : Alphabets){
@@ -100,7 +100,7 @@ public class WordLadderSolver implements Assignment4Interface
         						if(dict.searchDict(tempWord)){
         							if(!(candidateList.contains(tempWord))){
         								candidateList.add(tempWord);
-        								candidateList = sortTemp(candidateList, tempWord);
+        								candidateList = sortTemp(candidateList, endWord);
         							}
         						}	
     						}
@@ -120,7 +120,7 @@ public class WordLadderSolver implements Assignment4Interface
         						if(dict.searchDict(tempWord)){
         							if(!(candidateList.contains(tempWord))){
         								candidateList.add(tempWord);
-        								candidateList = sortTemp(candidateList, tempWord);
+        								candidateList = sortTemp(candidateList, endWord);
         							}
         						}
     						}
@@ -140,7 +140,7 @@ public class WordLadderSolver implements Assignment4Interface
         						if(dict.searchDict(tempWord)){
         							if(!(candidateList.contains(tempWord))){
         								candidateList.add(tempWord);
-        								candidateList = sortTemp(candidateList, tempWord);
+        								candidateList = sortTemp(candidateList, endWord);
         							}
         						}
     						}
@@ -160,7 +160,7 @@ public class WordLadderSolver implements Assignment4Interface
         						if(dict.searchDict(tempWord)){
         							if(!(candidateList.contains(tempWord))){
         								candidateList.add(tempWord);
-        								candidateList = sortTemp(candidateList, tempWord);
+        								candidateList = sortTemp(candidateList, endWord);
         							}
         						}
     						}
@@ -180,7 +180,7 @@ public class WordLadderSolver implements Assignment4Interface
         						if(dict.searchDict(tempWord)){
         							if(!(candidateList.contains(tempWord))){
         								candidateList.add(tempWord);
-        								candidateList = sortTemp(candidateList, tempWord);
+        								candidateList = sortTemp(candidateList, endWord);
         							}
         						}
     						}
@@ -196,12 +196,15 @@ public class WordLadderSolver implements Assignment4Interface
     		return false;
     	}
     	if(candidateList.get(0).substring(candidateList.get(0).length()-1).equals("1")){
+    		solutionList.add(candidateList.get(0).substring(0, 5));
     		return true;
-    	}    	
+    	}
+    	else if (candidateList.get(0).substring(candidateList.get(0).length()-1).equals("0"))
+    		return true;
     	else{
     		String newWord = candidateList.get(0).substring(0, (candidateList.get(0).length()-1));
     		for(int i = 0; i < 5; i+=1){
-    			if (newWord.charAt(i)!= endWord.charAt(i))
+    			if (newWord.charAt(i)!= startWord.charAt(i))
     				position = i;
     		}
     	for(int i=0;i<candidateList.size();i+=1){
@@ -232,28 +235,34 @@ public class WordLadderSolver implements Assignment4Interface
     				counter++;
     			}
    			}
-    		String word = temp.get(i);
+    		String word = temp.get(i).substring(0,5);
     		if(i==0)
     		{
     			newTemp.add(word+counter);//very first value to be added
     		}
+    		else{
     		for(int x=0;x<i;x++)
     		{
     			if(Integer.parseInt(newTemp.get(x).substring(newTemp.get(x).length()-1))>counter || Integer.parseInt(newTemp.get(x).substring(newTemp.get(x).length()-1))==counter)
     			{
     	    		newTemp.add(x,word+counter);
+    	    		break;
     			}
     			else
     			{
     				if(x+1!=newTemp.size())
     				{
     					newTemp.add(x+1,word+counter);
+    					break;
     				}
-    				else
+    				else{
     					newTemp.add(word+counter);
+    					break;
+    				}
     			}
     		}
    		}
+    }
     	return newTemp;
     }
 
