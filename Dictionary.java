@@ -77,7 +77,7 @@ public class Dictionary
     			{
     				if(x+1!=temp.size())
     				{
-    					temp.add(x+1, word+counter);
+    					temp.add(x+1,word+counter);
     				}
     				else
     					temp.add(word+counter);
@@ -86,19 +86,8 @@ public class Dictionary
    		}
     	return temp;
     }
-    //	String [] temparr = (String[]) temp.toArray();
-    /*	 for (int i = 1; i < temparr.length; i++)
-    	 {
-             int j = i;
-             int B = Integer.parseInt(temparr[i];
-             while ((j > 0) && (nos[j-1] > B))
-             {
-               temparr[j] = temparr[j-1];
-               j--;
-             }
-             temparr[j] = B;
-    	
-    }*/
+    
+
     	 
 }
     

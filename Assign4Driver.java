@@ -8,7 +8,6 @@ public class Assign4Driver
     {
         // Create a word ladder solver object
         Assignment4Interface wordLadderSolver = new WordLadderSolver();
-
         try 
         {
             List<String> result = wordLadderSolver.computeLadder("money", "honey");
