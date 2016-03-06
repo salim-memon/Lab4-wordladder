@@ -9,7 +9,8 @@ public class Dictionary
 	protected ArrayList<String> dictionary;
 	public Dictionary()
 	{
-		dictionary = null;
+		dictionary = new ArrayList<String>();
+		createDictionary();
 	}
 	public void createDictionary()
 	{
@@ -21,7 +22,7 @@ public class Dictionary
 			for (String s = reader.readLine(); s != null; s = reader.readLine()) 
 			{
 				if(!(s.startsWith("*")))
-					dictionary.add((s.split("//s+"))[0]);
+					dictionary.add((s.substring(0,5)));
 				
 			}
 			reader.close();
@@ -48,46 +49,6 @@ public class Dictionary
 			}
 		}
 		return false;
-	}
-	public ArrayList<String> sortTemp(ArrayList<String> temp, String compareWord)
-    {
-    	int counter;    	
-    	for(int i =0;i<temp.size();i++)
-    	{
-    		counter=0;
-    		for(int j =0;j<temp.get(i).length();j++)
-    		{
-    			if(temp.get(i).charAt(j) != compareWord.charAt(j))
-    			{
-    				counter++;
-    			}
-   			}
-    		String word = temp.get(i);
-    		if(i==0)
-    		{
-    			temp.add(word+counter);//very first value to be added
-    		}
-    		for(int x=0;x<i;x++)
-    		{
-    			if(Integer.parseInt(temp.get(x))>counter || Integer.parseInt(temp.get(x))==counter)
-    			{
-    	    		temp.add(x,word+counter);
-    			}
-    			else
-    			{
-    				if(x+1!=temp.size())
-    				{
-    					temp.add(x+1,word+counter);
-    				}
-    				else
-    					temp.add(word+counter);
-    			}
-    		}
-   		}
-    	return temp;
-    }
-    
-
-    	 
+	}    	 
 }
     

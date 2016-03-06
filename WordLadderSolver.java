@@ -26,12 +26,16 @@ public class WordLadderSolver implements Assignment4Interface
     {
         if(startWord.length()==5 && endWord.length()==5 && dict.searchDict(endWord) && dict.searchDict(startWord)) //checks to see if the word is valid and length is five
         {
-        	if(computeLadder(startWord, endWord, -1));	
+        	if(MakeLadder(startWord, endWord, -1))
         	{
+        		solutionList.add(endWord);
+        		for(String words : solutionList){
+        			System.out.println(words);
+        		}
+        		System.out.println("**********");
         		return solutionList; //-1 indicates that it is the first recursive call
         	}
-        	else
-        	{
+        	else{
         		throw new UnsupportedOperationException("Word ladder does not exist for these two inputs");
         	}
         }
@@ -41,22 +45,30 @@ public class WordLadderSolver implements Assignment4Interface
         }
         else if(!dict.searchDict(endWord) || !dict.searchDict(startWord)) 
         {
-        	throw new UnsupportedOperationException("Inputted words are not in dictionary");
+        	System.out.println("Inputted words are not in dictionary");
+        	//throw new UnsupportedOperationException("Inputted words are not in dictionary");
         }
+        return null;
     }
 
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
-        throw new UnsupportedOperationException("Not implemented yet!");
+    	System.out.println("Not implemented yet!");
+    	return false;
+        //throw new UnsupportedOperationException("Not implemented yet!");
     }
 
     // add additional methods here
     public boolean MakeLadder(String startWord, String endWord, int index){
-    	int position;
+    	boolean validWord = false;
+    	int position=0;
     	ArrayList<String> candidateList = new ArrayList<String>();
+    	if(solutionList.contains(startWord))
+    		return false;
     	solutionList.add(startWord);
-    	while(true){
+		boolean outOrNot = false;
+    	while(!outOrNot){
     		switch (index){
     		
     		case -1:
@@ -67,12 +79,15 @@ public class WordLadderSolver implements Assignment4Interface
     						trialWord.setCharAt(i, character);
     						String tempWord = trialWord.toString();
     						if(dict.searchDict(tempWord)){
-    							candidateList.add(tempWord);
-    							candidateList = sortTemp(candidateList, tempWord);
+    							if(!(candidateList.contains(tempWord))){
+    								candidateList.add(tempWord);
+    								candidateList = sortTemp(candidateList, tempWord);
+    							}
     						}	
     					}
     				}
     			}
+    			outOrNot = false;
     			break;
     		case 0:
     			for(char character : Alphabets){
@@ -83,13 +98,16 @@ public class WordLadderSolver implements Assignment4Interface
         						trialWord.setCharAt(i, character);
         						String tempWord = trialWord.toString();
         						if(dict.searchDict(tempWord)){
-        							candidateList.add(tempWord);
-        							candidateList = sortTemp(candidateList, tempWord);
+        							if(!(candidateList.contains(tempWord))){
+        								candidateList.add(tempWord);
+        								candidateList = sortTemp(candidateList, tempWord);
+        							}
         						}	
     						}
     					}
     				}
     			}
+    			outOrNot = true;
     			break;
     		case 1:
     			for(char character : Alphabets){
@@ -100,13 +118,16 @@ public class WordLadderSolver implements Assignment4Interface
         						trialWord.setCharAt(i, character);
         						String tempWord = trialWord.toString();
         						if(dict.searchDict(tempWord)){
-        							candidateList.add(tempWord);
-        							candidateList = sortTemp(candidateList, tempWord);
+        							if(!(candidateList.contains(tempWord))){
+        								candidateList.add(tempWord);
+        								candidateList = sortTemp(candidateList, tempWord);
+        							}
         						}
     						}
     					}
     				}
     			}
+    			outOrNot = true;
     			break;
     		case 2:
     			for(char character : Alphabets){
@@ -117,13 +138,16 @@ public class WordLadderSolver implements Assignment4Interface
         						trialWord.setCharAt(i, character);
         						String tempWord = trialWord.toString();
         						if(dict.searchDict(tempWord)){
-        							candidateList.add(tempWord);
-        							candidateList = sortTemp(candidateList, tempWord);
+        							if(!(candidateList.contains(tempWord))){
+        								candidateList.add(tempWord);
+        								candidateList = sortTemp(candidateList, tempWord);
+        							}
         						}
     						}
     					}
     				}
     			}
+    			outOrNot = true;
     			break;
     		case 3:
     			for(char character : Alphabets){
@@ -134,13 +158,16 @@ public class WordLadderSolver implements Assignment4Interface
         						trialWord.setCharAt(i, character);
         						String tempWord = trialWord.toString();
         						if(dict.searchDict(tempWord)){
-        							candidateList.add(tempWord);
-        							candidateList = sortTemp(candidateList, tempWord);
+        							if(!(candidateList.contains(tempWord))){
+        								candidateList.add(tempWord);
+        								candidateList = sortTemp(candidateList, tempWord);
+        							}
         						}
     						}
     					}
     				}
     			}
+    			outOrNot = true;
     			break;
     		case 4:
     			for(char character : Alphabets){
@@ -151,18 +178,83 @@ public class WordLadderSolver implements Assignment4Interface
         						trialWord.setCharAt(i, character);
         						String tempWord = trialWord.toString();
         						if(dict.searchDict(tempWord)){
-        							candidateList.add(tempWord);
-        							candidateList = sortTemp(candidateList, tempWord);
+        							if(!(candidateList.contains(tempWord))){
+        								candidateList.add(tempWord);
+        								candidateList = sortTemp(candidateList, tempWord);
+        							}
         						}
     						}
     					}
     				}
     			}
+    			outOrNot = true;
     			break;
     		}
     	}
-    	
-    	MakeLadder(newWord, endWord, position);
-		return false;
+    	if(candidateList.size()==0){
+    		solutionList.remove(startWord);
+    		return false;
+    	}
+    	if(candidateList.get(0).substring(candidateList.get(0).length()-1).equals("1")){
+    		return true;
+    	}    	
+    	else{
+    		String newWord = candidateList.get(0).substring(0, (candidateList.get(0).length()-1));
+    		for(int i = 0; i < 5; i+=1){
+    			if (newWord.charAt(i)!= endWord.charAt(i))
+    				position = i;
+    		}
+    	for(int i=0;i<candidateList.size();i+=1){
+    			newWord = candidateList.get(i).substring(0, (candidateList.get(i).length()-1));
+    			validWord = MakeLadder(newWord, endWord, position);
+    	   		if(validWord)
+    	   			break;
+    	}
+    	if(validWord){
+    		return true;
+    	}
+    		else{
+    			return false;
+    		}
+    	}
     }
+    public ArrayList<String> sortTemp(ArrayList<String> temp, String compareWord)
+    {
+    	int counter;    	
+    	ArrayList<String> newTemp = new ArrayList<String>();
+    	for(int i =0;i<temp.size();i++)
+    	{
+    		counter=0;
+    		for(int j =0;j<5;j++)
+    		{
+    			if(temp.get(i).charAt(j) != compareWord.charAt(j))
+    			{
+    				counter++;
+    			}
+   			}
+    		String word = temp.get(i);
+    		if(i==0)
+    		{
+    			newTemp.add(word+counter);//very first value to be added
+    		}
+    		for(int x=0;x<i;x++)
+    		{
+    			if(Integer.parseInt(newTemp.get(x).substring(newTemp.get(x).length()-1))>counter || Integer.parseInt(newTemp.get(x).substring(newTemp.get(x).length()-1))==counter)
+    			{
+    	    		newTemp.add(x,word+counter);
+    			}
+    			else
+    			{
+    				if(x+1!=newTemp.size())
+    				{
+    					newTemp.add(x+1,word+counter);
+    				}
+    				else
+    					newTemp.add(word+counter);
+    			}
+    		}
+   		}
+    	return newTemp;
+    }
+
 }
