@@ -16,7 +16,7 @@ public class Dictionary
 	{
 		try 
 		{
-			FileReader freader = new FileReader("A4-words.txt");
+			FileReader freader = new FileReader("A4-words.txt"); //reads the text file and ignores lines with *, only takes first five characters
 			BufferedReader reader = new BufferedReader(freader);
 			
 			for (String s = reader.readLine(); s != null; s = reader.readLine()) 
@@ -43,7 +43,7 @@ public class Dictionary
 	{
 		for(int i=0;i<dictionary.size();i++)
 		{
-			if(dictionary.get(i).equals(search))
+			if(dictionary.get(i).equals(search)) //checks to see if word is in dictionary
 			{
 				return true;
 			}
